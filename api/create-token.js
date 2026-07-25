@@ -2,20 +2,13 @@ import { put } from '@vercel/blob';
 import {
   StellarSdk, server, NETWORK_PASSPHRASE, setCors, sendError, parseJsonBody,
   validateTokenCode, validatePublicKey, validateAmount, normalizeHomeDomain,
-  normalizeGithubImageUrl, validateHttpsUrl, secureEqual, verifyPiAccessToken, safeHorizonError
+  normalizeGithubImageUrl, validateHttpsUrl, safeHorizonError
 } from './_shared.js';
 
 export default async function handler(req, res) {
   setCors(res, 'POST,OPTIONS');
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return sendError(res, 405, 'Method not allowed');
-
-  try { await verifyPiAccessToken(req.headers.authorization); }
-  catch (error) { return sendError(res, 401, error.message); }
-
-  if (!process.env.ADMIN_PASSWORD || !secureEqual(req.headers['x-admin-password'], process.env.ADMIN_PASSWORD)) {
-    return sendError(res, 403, 'Admin password is incorrect.');
-  }
 
   const body = parseJsonBody(req);
   const tokenCode = String(body.tokenCode || '').trim();

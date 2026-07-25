@@ -1,5 +1,4 @@
 import * as StellarSdk from '@stellar/stellar-sdk';
-import crypto from 'node:crypto';
 
 export const HORIZON_URL = 'https://api.testnet.minepi.com';
 export const NETWORK_PASSPHRASE = 'Pi Testnet';
@@ -8,7 +7,7 @@ export const server = new StellarSdk.Horizon.Server(HORIZON_URL);
 export function setCors(res, methods = 'GET,POST,OPTIONS') {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', methods);
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Password');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
 export function sendError(res, status, message, details) {
@@ -46,20 +45,6 @@ export function normalizeGithubImageUrl(value) {
 
 export function validateHttpsUrl(value) {
   try { return new URL(value).protocol === 'https:'; } catch { return false; }
-}
-
-export function secureEqual(provided, expected) {
-  const a = Buffer.from(String(provided || ''));
-  const b = Buffer.from(String(expected || ''));
-  return a.length === b.length && crypto.timingSafeEqual(a, b);
-}
-
-export async function verifyPiAccessToken(authHeader) {
-  if (!String(authHeader || '').startsWith('Bearer ')) throw new Error('Missing Pi access token.');
-  const response = await fetch('https://api.minepi.com/v2/me', { headers: { Authorization: authHeader } });
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data?.message || 'Pi authentication failed.');
-  return data;
 }
 
 export function safeHorizonError(error) {
