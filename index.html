@@ -1,11 +1,10 @@
-
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#6b2d91" />
-  <title>Pi Token Studio — Production Login / Testnet Token</title>
+  <title>Pi Token Studio — إنشاء توكن على Pi Testnet</title>
   <style>
     :root{--pi:#6b2d91;--pi2:#8d4fb2;--gold:#f5b942;--ink:#27172f;--muted:#706477;--line:#eadff0;--bg:#faf7fc;--ok:#127a52;--danger:#b3261e;--shadow:0 18px 50px rgba(72,25,92,.12)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(180deg,#fff 0,#faf7fc 55%,#f3ebf7 100%);color:var(--ink);padding-bottom:86px}
@@ -14,7 +13,7 @@
   </style>
 </head>
 <body>
-  <header class="hero" id="home"><div class="wrap"><div class="heroCard"><span class="badge">π Pi SDK Production • Pi Testnet Token</span><h1>أنشئ توكن تجريبيًا بأمان ووضوح</h1><p>تسجيل الدخول يعمل بوضع Pi الإنتاجي، بينما إنشاء التوكن يظل على شبكة Pi Testnet حسب وثائق التوكن. أدخل العناوين العامة والبيانات من الواجهة، وتبقى المفاتيح السرية داخل Vercel فقط.</p></div></div></header>
+  <header class="hero" id="home"><div class="wrap"><div class="heroCard"><span class="badge">π Pi Testnet Token Studio</span><h1>أنشئ توكن تجريبيًا بسهولة</h1><p>الموقع يعمل مباشرة دون تسجيل دخول Pi أو كلمة مرور إدارة. أدخل العناوين العامة وبيانات التوكن، بينما تبقى المفاتيح السرية داخل Vercel فقط.</p></div></div></header>
   <main class="wrap">
     <div class="grid">
       <section class="card" id="create"><h2>بيانات التوكن</h2>
@@ -24,31 +23,27 @@
           <div class="field"><label>رابط الموقع المرتبط <span class="hint">بدون مسار</span></label><input id="homeDomain" inputmode="url" placeholder="your-app.vercel.app" required /></div>
           <div class="row"><div class="field"><label>عنوان Issuer العام <span class="hint">يبدأ بـ G</span></label><input class="secret" id="issuerAddress" placeholder="G..." minlength="56" maxlength="56" required /></div><div class="field"><label>عنوان Distributor العام <span class="hint">محفظة الثقة والاستلام</span></label><input class="secret" id="distributorAddress" placeholder="G..." minlength="56" maxlength="56" required /></div></div>
           <div class="row"><div class="field"><label>اسم التوكن</label><input id="tokenName" maxlength="80" placeholder="My Token" required /></div><div class="field"><label>رابط صورة GitHub أو HTTPS مباشر</label><input id="imageUrl" inputmode="url" placeholder="https://github.com/user/repo/blob/main/logo.png" required /></div></div>
-          <div class="field"><label>شرح مختصر <span class="hint">حتى 300 حرف</span></label><textarea id="description" maxlength="300" placeholder="Testnet token with no monetary value." required></textarea><img id="logoPreview" class="logoPreview" alt="معاينة اللوجو" /></div><div class="field"><label>كلمة مرور الإدارة <span class="hint">مطابقة لـ ADMIN_PASSWORD في Vercel</span></label><input class="secret" id="adminPassword" type="password" autocomplete="current-password" placeholder="••••••••••" required /></div>
-          <div class="actions"><button class="btn secondary" type="button" id="piLogin">دخول Pi</button><button class="btn primary" id="createBtn" type="submit">إنشاء وإصدار التوكن</button></div>
+          <div class="field"><label>شرح مختصر <span class="hint">حتى 300 حرف</span></label><textarea id="description" maxlength="300" placeholder="Testnet token with no monetary value." required></textarea><img id="logoPreview" class="logoPreview" alt="معاينة اللوجو" /></div>
+          <div class="actions"><button class="btn primary" id="createBtn" type="submit">إنشاء وإصدار التوكن</button></div>
           <div id="status" class="status" role="status" aria-live="polite"></div>
         </form>
       </section>
       <aside>
         <section class="card" id="guide"><h3>ماذا يحدث؟</h3><div class="steps"><div class="step"><div><b>Trustline</b><p>محفظة Distributor تثق في الأصل، وهنا يُعرّف الأصل على السلسلة.</p></div></div><div class="step"><div><b>Home Domain</b><p>ربط حساب Issuer بدومين موقعك الذي يستضيف ملف <code>/.well-known/pi.toml</code>.</p></div></div><div class="step"><div><b>Mint</b><p>يرسل Issuer الكمية المحددة إلى Distributor، وهي عملية الإصدار.</p></div></div><div class="step"><div><b>Wallet / DEX</b><p>انتظر فحص Pi Server، ثم أنشئ Liquidity Pool من Pi Wallet حتى يمكن المبادلة.</p></div></div></div></section>
-        <section class="card" style="margin-top:20px"><h3>قبل التشغيل</h3><ul class="checklist"><li>محفظتان مفعّلتان على Testnet</li><li>رصيد Test-Pi للرسوم</li><li>دومين HTTPS منشور</li><li>لوجو عام قابل للتحميل</li><li>Vercel Blob متصل بالمشروع</li><li>المفاتيح السرية وكلمة الإدارة في Vercel</li></ul></section>
+        <section class="card" style="margin-top:20px"><h3>قبل التشغيل</h3><ul class="checklist"><li>محفظتان مفعّلتان على Testnet</li><li>رصيد Test-Pi للرسوم</li><li>دومين HTTPS منشور</li><li>لوجو عام قابل للتحميل</li><li>Vercel Blob متصل بالمشروع</li><li>المفاتيح السرية في Vercel</li></ul></section>
       </aside>
     </div>
     <section class="card" id="verify"><h2>التحقق من توكن موجود</h2><div class="row"><div class="field"><label>رمز التوكن</label><input id="verifyCode" placeholder="MYTOKEN" /></div><div class="field"><label>عنوان Issuer العام</label><input id="verifyIssuer" class="secret" placeholder="G..." /></div></div><button class="btn secondary" id="verifyBtn">فحص على Testnet</button><div id="verifyStatus" class="status"></div></section>
-    <div class="footer">Pi SDK production login • Token operations on Pi Testnet • لا يمثل ضمانًا للإدراج أو السيولة.</div>
+    <div class="footer">Token operations on Pi Testnet • لا يمثل ضمانًا للإدراج أو السيولة.</div>
   </main>
   <div class="bottom"><nav><a class="active" href="#home">الرئيسية</a><a href="#create">إنشاء</a><a href="#guide">الشرح</a><a href="#verify">التحقق</a></nav></div>
-  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <script>
     const $=s=>document.querySelector(s), status=$('#status'), verifyStatus=$('#verifyStatus');
-    let piUser=null, piAccessToken='';
-    try{ if(window.Pi) Pi.init({version:'2.0',sandbox:false}); }catch(e){}
     function show(el,msg,type='ok'){el.className='status show '+type;el.textContent=msg}
     function domainOnly(v){try{return new URL(/^https?:\/\//i.test(v)?v:'https://'+v).host}catch{return v.trim().replace(/^https?:\/\//i,'').split('/')[0]}}
     function directGithubUrl(v){const m=v.trim().match(/^https:\/\/github\.com\/([^/]+)\/([^/]+)\/blob\/([^/]+)\/(.+)$/i);return m?`https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}/${m[4]}`:v.trim()}
     $('#imageUrl').addEventListener('input',e=>{const img=$('#logoPreview'),v=directGithubUrl(e.target.value);if(v){img.src=v;img.style.display='block'}else img.style.display='none'});
-    $('#piLogin').addEventListener('click',async()=>{if(!window.Pi)return show(status,'افتح الموقع داخل Pi Browser لاستخدام تسجيل الدخول.','err');try{const auth=await Pi.authenticate(['username','wallet_address'],p=>console.log('Incomplete payment',p));const r=await fetch('/api/pi-auth',{headers:{Authorization:'Bearer '+auth.accessToken}});const data=await r.json();if(!r.ok)throw new Error(data.error||'فشل التحقق');piUser=data.user;piAccessToken=auth.accessToken;show(status,'تم التحقق من حساب Pi بنجاح: '+(auth.user.username||auth.user.uid));}catch(e){show(status,e.message,'err')}});
-    $('#tokenForm').addEventListener('submit',async e=>{e.preventDefault();const btn=$('#createBtn');if(!confirm('تأكيد: هذه العملية لشبكة Testnet فقط وستنفذ 3 معاملات بلوكشين؟'))return;btn.disabled=true;show(status,'جاري إنشاء Trustline ثم ضبط الدومين ثم إصدار التوكن...');if(!piAccessToken){btn.disabled=false;return show(status,'سجّل الدخول بحساب Pi أولًا.','err')}const payload={tokenCode:$('#tokenCode').value.trim(),amount:$('#amount').value.trim(),homeDomain:domainOnly($('#homeDomain').value),issuerAddress:$('#issuerAddress').value.trim(),distributorAddress:$('#distributorAddress').value.trim(),tokenName:$('#tokenName').value.trim(),description:$('#description').value.trim(),imageUrl:directGithubUrl($('#imageUrl').value),piUid:piUser?.uid||null};try{const r=await fetch('/api/create-token',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+piAccessToken,'X-Admin-Password':$('#adminPassword').value},body:JSON.stringify(payload)});const data=await r.json();if(!r.ok)throw new Error(data.error+'\n'+JSON.stringify(data.details||'',null,2));show(status,`تم إنشاء التوكن على Pi Testnet ✅\n\nCode: ${data.token.code}\nIssuer: ${data.token.issuer}\nDistributor: ${data.token.distributor}\nAmount: ${data.token.amount}\nHome domain: ${data.token.homeDomain}\n\nTrustline TX: ${data.transactions.trustline}\nHome Domain TX: ${data.transactions.homeDomain}\nMint TX: ${data.transactions.mint}\nPi TOML: ${data.piTomlUrl}\n\nتم حفظ بيانات الاسم والوصف والصورة في Vercel Blob. تأكد من فتح رابط pi.toml، ثم انتظر فحص Pi Server وأنشئ Liquidity Pool.`);$('#adminPassword').value='';}catch(err){show(status,err.message,'err')}finally{btn.disabled=false}});
+    $('#tokenForm').addEventListener('submit',async e=>{e.preventDefault();const btn=$('#createBtn');if(!confirm('تأكيد: هذه العملية لشبكة Testnet فقط وستنفذ 3 معاملات بلوكشين؟'))return;btn.disabled=true;show(status,'جاري إنشاء Trustline ثم ضبط الدومين ثم إصدار التوكن...');const payload={tokenCode:$('#tokenCode').value.trim(),amount:$('#amount').value.trim(),homeDomain:domainOnly($('#homeDomain').value),issuerAddress:$('#issuerAddress').value.trim(),distributorAddress:$('#distributorAddress').value.trim(),tokenName:$('#tokenName').value.trim(),description:$('#description').value.trim(),imageUrl:directGithubUrl($('#imageUrl').value)};try{const r=await fetch('/api/create-token',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await r.json();if(!r.ok)throw new Error((data.error||'فشلت العملية')+'\n'+JSON.stringify(data.details||'',null,2));show(status,`تم إنشاء التوكن على Pi Testnet ✅\n\nCode: ${data.token.code}\nIssuer: ${data.token.issuer}\nDistributor: ${data.token.distributor}\nAmount: ${data.token.amount}\nHome domain: ${data.token.homeDomain}\n\nTrustline TX: ${data.transactions.trustline}\nHome Domain TX: ${data.transactions.homeDomain}\nMint TX: ${data.transactions.mint}\nPi TOML: ${data.piTomlUrl}\n\nتم حفظ بيانات الاسم والوصف والصورة. افتح رابط pi.toml ثم انتظر فحص Pi Server وأنشئ Liquidity Pool.`);}catch(err){show(status,err.message,'err')}finally{btn.disabled=false}});
     $('#verifyBtn').addEventListener('click',async()=>{const code=$('#verifyCode').value.trim(),issuer=$('#verifyIssuer').value.trim();show(verifyStatus,'جاري الفحص...');try{const r=await fetch(`/api/token-info?code=${encodeURIComponent(code)}&issuer=${encodeURIComponent(issuer)}`);const d=await r.json();if(!r.ok)throw new Error(d.error);show(verifyStatus,d.records?.length?`تم العثور على الأصل ✅\nعدد الحسابات: ${d.records[0].accounts?.authorized||0}\nالكمية: ${d.records[0].amount||'—'}\nالدومين: ${d.records[0]._links?.toml?.href||'غير مضبوط'}`:'لم يتم العثور على الأصل بعد.','ok')}catch(e){show(verifyStatus,e.message,'err')}});
   </script>
 </body>
