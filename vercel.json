@@ -1,0 +1,25 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://sdk.minepi.com; connect-src 'self' https://api.minepi.com https://api.testnet.minepi.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; frame-src https://*.minepi.com; base-uri 'self'; form-action 'self'" }
+      ]
+    },
+    {
+      "source": "/.well-known/pi.toml",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=300, s-maxage=300" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/.well-known/pi.toml", "destination": "/api/pi-toml" }
+  ]
+}
