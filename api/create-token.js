@@ -1,9 +1,10 @@
-import { put } from '@vercel/blob';
 import {
   StellarSdk, server, NETWORK_PASSPHRASE, setCors, sendError, parseJsonBody,
   validateTokenCode, validatePublicKey, validateAmount, normalizeHomeDomain,
   normalizeGithubImageUrl, validateHttpsUrl, safeHorizonError
 } from './_shared.js';
+
+const tomlClean = value => String(value || '').replace(/[\r\n"]/g, ' ').trim();
 
 export default async function handler(req, res) {
   setCors(res, 'POST,OPTIONS');
@@ -70,20 +71,20 @@ export default async function handler(req, res) {
     mintTx.sign(issuerKeypair);
     txHashes.mint = (await server.submitTransaction(mintTx)).hash;
 
-    const metadata = { code: tokenCode, issuer: issuerAddress, name: tokenName, desc: description, image: imageUrl, homeDomain, updatedAt: new Date().toISOString() };
-    await put('config/pi-token-metadata.json', JSON.stringify(metadata), {
-      access: 'public', addRandomSuffix: false, allowOverwrite: true, contentType: 'application/json; charset=utf-8'
-    });
+    const metadata = { code: tokenCode, issuer: issuerAddress, name: tokenName, desc: description, image: imageUrl, homeDomain };
+    const piToml = `[[CURRENCIES]]\ncode="${tomlClean(tokenCode)}"\nissuer="${tomlClean(issuerAddress)}"\nname="${tomlClean(tokenName)}"\ndesc="${tomlClean(description)}"\nimage="${tomlClean(imageUrl)}"\n`;
 
     return res.status(200).json({
       ok: true,
       token: { ...metadata, amount, distributor: distributorAddress },
       transactions: txHashes,
+      piToml,
       piTomlUrl: `https://${homeDomain}/.well-known/pi.toml`,
       assetUrl: `${server.serverURL}/assets?asset_code=${encodeURIComponent(tokenCode)}&asset_issuer=${issuerAddress}`,
-      notice: 'Created on Pi Testnet. Pi SDK production mode does not change the blockchain network used by this endpoint.'
+      metadataStorage: 'environment',
+      notice: 'Blockchain transactions succeeded. Add TOKEN_CODE, TOKEN_ISSUER, TOKEN_NAME, TOKEN_DESCRIPTION and TOKEN_IMAGE_URL to Vercel, then redeploy so pi.toml remains available.'
     });
   } catch (error) {
-    return sendError(res, 502, 'Pi Testnet transaction or metadata save failed.', safeHorizonError(error));
+    return sendError(res, 502, 'Pi Testnet transaction failed.', { blockchain: safeHorizonError(error), completedTransactions: txHashes });
   }
 }
